@@ -1,0 +1,4 @@
+/config.py
+/virtualenv
+__pycache__
+*.pyc

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>QDB</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	{% block css %}{% endblock %}
+</head>
+<body>
+
+	<header class="header clearfix">
+		<a href="{{ url_for('home') }}"><h1 class="site-title">QDB</h1></a>
+		<form action="{{ url_for('home') }}" class="search-form">
+			<input type="search" name="s">
+			<button type="submit">Search</button>
+		</form>
+		<nav class="main-nav">
+			<ul class="menu">
+				{% if session.get('logged_in') %}
+				<li><a href="{{ url_for('pending') }}">Pending</a></li>
+				{% endif %}
+				<li><a href="{{ url_for('home') }}">Recent</a></li>
+				<li><a href="{{ url_for('random') }}">Random</a></li>
+				<li><a href="{{ url_for('submit') }}">Submit</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="main clearfix">
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<div class="messages">
+		{% for message in messages %}
+			<p>{{ message }}</p>
+		{% endfor %}
+		</div>
+	{% endif %}
+	{% endwith %}
+
+	{% block main %}{% endblock %}
+	</main>
+
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+	{% block js %}{% endblock %}
+</body>
+</html>

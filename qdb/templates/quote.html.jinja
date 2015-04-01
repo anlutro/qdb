@@ -1,0 +1,13 @@
+<article class="quote" id="quote-{{ quote.id }}">
+	<div class="quote-info">
+		<span class="quote-id"><a href="{{ url_for('show', quote_id=quote.id) }}">#{{ quote.id }}</a></span>
+		<time class="quote-submitted_at">{{ quote.submitted_at }}</time>
+		{% if session.get('logged_in') and not quote.approved %}
+		<button class="quote-approve_button" data-quote-id="{{ quote.id }}">Approve</button>
+		{% endif %}
+		{% if session.get('logged_in') %}
+		<button class="quote-delete_button" data-quote-id="{{ quote.id }}">Delete</button>
+		{% endif %}
+	</div>
+	<div class="quote-body">{{ quote.body }}</div>
+</article>

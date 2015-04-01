@@ -1,0 +1,27 @@
+{% extends 'layout.html.jinja' %}
+
+{% block main %}
+{% if quotes %}
+
+{% if paginator is defined %}
+<div class="paginator clearfix">
+	{{ paginator }}
+</div>
+{% endif %}
+
+{% for quote in quotes %}
+{% include 'quote.html.jinja' with context %}
+{% endfor %}
+
+{% if paginator is defined %}
+<div class="paginator clearfix">
+	{{ paginator }}
+</div>
+{% endif %}
+
+{% else %}
+
+<div class="message">No quotes!</div>
+
+{% endif %}
+{% endblock %}
