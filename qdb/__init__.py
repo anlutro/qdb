@@ -20,7 +20,7 @@ from sqlalchemy.sql.expression import func
 @app.route('/')
 def home():
 	search = request.args.get('s')
-	page = request.args.get('p', 1)
+	page = int(request.args.get('p', 1))
 
 	query = db_session.query(Quote) \
 		.filter(Quote.approved == True) \
@@ -29,13 +29,21 @@ def home():
 	if search:
 		query = query.filter(Quote.body.like('%'+search+'%'))
 
-	paginator = Paginator(query, page, request.url)
-	quotes = paginator.items
+	if page > 0:
+		paginator = Paginator(query, page, request.url)
+		quotes = paginator.items
 
-	if request.headers.get('Accept') == 'application/json':
-		return jsonify(quotes=paginator)
+		if request.headers.get('Accept') == 'application/json':
+			return jsonify(quotes=paginator)
+	else:
+		paginator = None
+		quotes = query.all()
+
+		if request.headers.get('Accept') == 'application/json':
+			return jsonify(quotes=quotes)
 
 	return render_template('list.html.jinja', quotes=quotes, paginator=paginator)
+
 
 @app.route('/random')
 def random():
