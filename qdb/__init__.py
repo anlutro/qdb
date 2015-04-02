@@ -8,6 +8,14 @@ cfg_file_path = os.path.join(dirname, 'config.py')
 app.config.from_pyfile(cfg_file_path)
 
 
+# set up logging
+if not app.debug:
+    import logging, sys
+    file_handler = logging.StreamHandler(sys.stderr)
+    file_handler.setLevel(logging.WARNING)
+    app.logger.addHandler(file_handler)
+
+
 from qdb.models import Quote
 from qdb.database import init_db, db_session
 from qdb.utils import Paginator, CustomJSONEncoder
