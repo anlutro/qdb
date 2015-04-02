@@ -28,5 +28,7 @@ class Quote(Base):
 
 		# replace tabs with spaces
 		quote = re.sub(r'\t+', ' ', quote)
+		# remove windows-style newline characters
+		quote = quote.replace('\r', '')
 
 		return quote
