@@ -60,7 +60,8 @@ def submit():
 	if request.method == 'GET':
 		return render_template('form.html.jinja', form_action=url_for('submit'))
 
-	quote = Quote(request.form['body'], datetime.now())
+	body = Quote.prepare(request.form['body'])
+	quote = Quote(body, datetime.now())
 	db_session.add(quote)
 	db_session.commit()
 
