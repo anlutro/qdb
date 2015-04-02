@@ -47,16 +47,13 @@ def home():
 
 @app.route('/random')
 def random():
-	page = request.args.get('p', 1)
-
 	query = db_session.query(Quote) \
 		.filter(Quote.approved == True) \
 		.order_by(func.random())
 
-	paginator = Paginator(query, page, request.url)
-	quotes = paginator.items
+	quotes = query.all()
 
-	return render_template('list.html.jinja', quotes=quotes, paginator=paginator)
+	return render_template('list.html.jinja', quotes=quotes)
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
