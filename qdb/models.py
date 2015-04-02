@@ -1,11 +1,11 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, Text, DateTime, Boolean
 from qdb.database import Base
 
 class Quote(Base):
 	__tablename__ = 'quotes'
 
 	id = Column(Integer, primary_key=True)
-	body = Column(String(2000))
+	body = Column(Text)
 	submitted_at = Column(DateTime)
 	approved = Column(Boolean)
 	score = Column(Integer)

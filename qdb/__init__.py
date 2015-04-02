@@ -1,5 +1,5 @@
 import os.path
-from flask import (Flask, url_for, render_template,
+from flask import (Flask, url_for, render_template, jsonify,
 	redirect, abort, flash, request, session)
 app = Flask(__name__)
 
@@ -10,7 +10,8 @@ app.config.from_pyfile(cfg_file_path)
 
 from qdb.models import Quote
 from qdb.database import init_db, db_session
-from qdb.utils import Paginator
+from qdb.utils import Paginator, CustomJSONEncoder
+app.json_encoder = CustomJSONEncoder
 from datetime import datetime
 from sqlalchemy.sql.expression import func
 
@@ -30,6 +31,9 @@ def home():
 
 	paginator = Paginator(query, page, request.url)
 	quotes = paginator.items
+
+	if request.headers.get('Accept') == 'application/json':
+		return jsonify(quotes=paginator)
 
 	return render_template('list.html.jinja', quotes=quotes, paginator=paginator)
 
@@ -70,6 +74,9 @@ def pending():
 
 	quotes = query.all()
 
+	if request.headers.get('Accept') == 'application/json':
+		return jsonify(quotes=quotes)
+
 	return render_template('list.html.jinja', quotes=quotes)
 
 @app.route('/login')
@@ -92,6 +99,9 @@ def show(quote_id):
 		return abort(404)
 
 	if request.method == 'GET':
+		if request.headers.get('Accept') == 'application/json':
+			return jsonify(quote=quote)
+
 		return render_template('show.html.jinja', quote=quote)
 	elif request.method == 'DELETE':
 		db_session.delete(quote)

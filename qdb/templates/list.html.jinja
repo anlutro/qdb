@@ -3,7 +3,7 @@
 {% block main %}
 {% if quotes %}
 
-{% if paginator is defined %}
+{% if paginator is defined and paginator %}
 <div class="paginator clearfix">
 	{{ paginator }}
 </div>
@@ -13,7 +13,7 @@
 {% include 'quote.html.jinja' with context %}
 {% endfor %}
 
-{% if paginator is defined %}
+{% if paginator is defined and paginator %}
 <div class="paginator clearfix">
 	{{ paginator }}
 </div>

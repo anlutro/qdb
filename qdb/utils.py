@@ -1,6 +1,29 @@
 import math
 import re
 import urllib
+from flask.json import JSONEncoder
+import qdb.models
+
+
+class CustomJSONEncoder(JSONEncoder):
+	def default(self, obj):
+		if isinstance(obj, qdb.models.Quote):
+			return {
+				'id': obj.id,
+				'body': obj.body,
+				'submitted_at': obj.submitted_at.isoformat(),
+				'approved': obj.approved,
+			}
+		if isinstance(obj, Paginator):
+			return {
+				'items': obj.items,
+				'current_page': obj.page,
+				'total_count': obj.total_count,
+				'per_page': obj.per_page,
+				'total_pages': obj.last_page,
+			}
+		return super(CustomJSONEncoder, self).default(obj)
+
 
 class Paginator:
 	per_page = 50
@@ -16,10 +39,16 @@ class Paginator:
 		self.url = url
 		self.last_page = math.ceil(self.total_count / self.per_page)
 		self.pages = range(1, self.last_page + 1)
-		self.html = self._render_html()
+		self._html = None
 
 	def __str__(self):
 		return self.html
+
+	@property
+	def html(self):
+		if self._html is None:
+			self._html = self._render_html()
+		return self._html
 
 	def _render_html(self):
 		# parse the url outside of the gen_page_link function for efficiency
