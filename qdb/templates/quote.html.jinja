@@ -9,5 +9,5 @@
 		<button class="quote-delete_button" data-quote-id="{{ quote.id }}">Delete</button>
 		{% endif %}
 	</div>
-	<div class="quote-body">{{ quote.body }}</div>
+	<div class="quote-body">{{ quote.body | e }}</div>
 </article>
