@@ -25,3 +25,11 @@ Run the application:
 	$ ./run.py
 
 Check the URL given on the command line to make sure it works.
+
+### PostgreSQL
+
+If you want to run the application on top of PostgreSQL, you need to install psycopg2.
+
+To install psycopg2 with pip, you need the `python-dev` package installed.
+
+	$ pip install psycopg2
