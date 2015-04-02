@@ -60,6 +60,7 @@ body {
 .quote-body {
 	font-family: monospace;
 	white-space: pre-wrap;
+	word-break: break-word;
 }
 
 .paginator {
