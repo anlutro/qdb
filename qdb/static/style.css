@@ -75,9 +75,15 @@ body {
 .paginator a {
 	display: inline-block;
 	background: #444;
-	color: #fff;
+	color: #eee;
 	padding: 0 5px;
 	text-decoration: none;
+	border: 1px solid transparent;
+}
+.paginator a.active {
+	background: #666;
+	color: #fff;
+	border: 1px solid #999;
 }
 .paginator a + a {
 	margin-left: 3px;
