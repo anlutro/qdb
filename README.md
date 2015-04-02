@@ -20,10 +20,6 @@ Copy the config example file to `config.py`:
 
 Replace the data in config.py as needed.
 
-Run the schema script onto your SQLite database:
-
-	$ sqlite3 ./tmp/test.db < ./database/schema.sqlite.sql
-
 Run the application:
 
 	$ ./run.py
