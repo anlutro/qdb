@@ -57,7 +57,8 @@ def home():
 def random():
 	query = db_session.query(Quote) \
 		.filter(Quote.approved == True) \
-		.order_by(func.random())
+		.order_by(func.random()) \
+		.limit(10)
 
 	quotes = query.all()
 
