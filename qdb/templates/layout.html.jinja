@@ -17,7 +17,7 @@
 		<nav class="main-nav">
 			<ul class="menu">
 				{% if session.get('logged_in') %}
-				<li><a href="{{ url_for('pending') }}">Pending</a></li>
+				<li><a href="{{ url_for('pending') }}">Pending ({{ pending_count }})</a></li>
 				{% endif %}
 				<li><a href="{{ url_for('home') }}">Recent</a></li>
 				<li><a href="{{ url_for('random') }}">Random</a></li>

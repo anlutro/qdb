@@ -156,3 +156,13 @@ init_db()
 @app.teardown_appcontext
 def shutdown_session(exception=None):
 	db_session.remove()
+
+@app.context_processor
+def inject_pending_count():
+	if not session.get('logged_in'):
+		return dict()
+
+	query = db_session.query(Quote) \
+		.filter(Quote.approved == False)
+	count = query.count()
+	return {'pending_count': count}
