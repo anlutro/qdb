@@ -34,7 +34,7 @@ app.json_encoder = CustomJSONEncoder
 import qdb.routes
 
 # initialize the database session
-from qdb.database import init_db
+from qdb.database import init_db, db_session
 init_db()
 
 @app.teardown_appcontext
