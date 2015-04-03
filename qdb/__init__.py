@@ -21,10 +21,10 @@ app.jinja_options = ImmutableDict(
 
 # set up logging to stderr
 if not app.debug:
-    import logging, sys
-    file_handler = logging.StreamHandler(sys.stderr)
-    file_handler.setLevel(logging.WARNING)
-    app.logger.addHandler(file_handler)
+	import logging, sys
+	file_handler = logging.StreamHandler(sys.stderr)
+	file_handler.setLevel(logging.WARNING)
+	app.logger.addHandler(file_handler)
 
 # replace the json encoder
 from qdb.utils import CustomJSONEncoder
