@@ -42,6 +42,7 @@ def shutdown_session(exception=None):
 	db_session.remove()
 
 # inject the pending_count variable as a jinja global
+from qdb.models import Quote
 @app.context_processor
 def inject_pending_count():
 	if not session.get('logged_in'):
