@@ -1,19 +1,20 @@
-from flask import Flask, session
-app = Flask(__name__)
-
 # find the project root directory
 import os.path
-dirname = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
+# initiate the flask app
+from flask import Flask
+app = Flask(__name__, static_folder=os.path.join(root, 'public'))
 
 # runtime/local configuration via config.py
-cfg_file_path = os.path.join(dirname, 'config.py')
+cfg_file_path = os.path.join(root, 'config.py')
 app.config.from_pyfile(cfg_file_path)
 
 if not app.debug:
 	# enable bytecode caching for templates
 	from jinja2 import FileSystemBytecodeCache
 	from werkzeug.datastructures import ImmutableDict
-	j2cachedir = os.path.join(dirname, 'tmp', 'j2cache')
+	j2cachedir = os.path.join(root, 'tmp', 'j2cache')
 	app.jinja_options = ImmutableDict(
 		extensions = ['jinja2.ext.with_'],
 		bytecode_cache = FileSystemBytecodeCache(j2cachedir, '%s.cache'),
@@ -42,6 +43,7 @@ def shutdown_session(exception=None):
 
 # inject the pending_count variable as a jinja global
 from qdb.models import Quote
+from flask import session
 @app.context_processor
 def inject_pending_count():
 	if not session.get('logged_in'):
