@@ -18,7 +18,7 @@ def home():
 		.order_by(Quote.submitted_at.desc())
 
 	if search:
-		query = query.filter(Quote.body.like('%'+search+'%'))
+		query = query.filter(Quote.body.ilike('%'+search+'%'))
 
 	if page > 0:
 		paginator = Paginator(query, page, request.url)
