@@ -45,6 +45,9 @@ def random():
 
 	quotes = query.all()
 
+	if request.headers.get('Accept') == 'application/json':
+		return jsonify(quotes=quotes)
+
 	return render_template('list.html.jinja', quotes=quotes)
 
 
