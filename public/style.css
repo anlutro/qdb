@@ -80,6 +80,14 @@ body {
 	word-break: break-word;
 	tab-size: 1;
 }
+.quote-body.hidden,
+.quote-edit.hidden {
+	display: none;
+}
+.quote-edit-input {
+	width: 100%;
+	height: 15em;
+}
 
 .paginator {
 	text-align: center;

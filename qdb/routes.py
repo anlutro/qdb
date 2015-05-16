@@ -54,7 +54,10 @@ def random():
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
 	if request.method == 'GET':
-		return render_template('form.html.jinja', form_action=url_for('submit'))
+		return render_template('form.html.jinja',
+			form_action=url_for('submit'),
+			body='',
+		)
 
 	body = Quote.prepare(request.form['body'])
 	quote = Quote(body, datetime.now())
@@ -94,7 +97,7 @@ def login():
 	return redirect(url_for('home'))
 
 
-@app.route('/<int:quote_id>', methods=['GET', 'POST', 'DELETE'])
+@app.route('/<int:quote_id>', methods=['GET', 'DELETE', 'PATCH'])
 def show(quote_id):
 	quote = db_session.query(Quote) \
 		.filter(Quote.id == quote_id) \
@@ -106,14 +109,18 @@ def show(quote_id):
 	if request.method == 'GET':
 		if request.headers.get('Accept') == 'application/json':
 			return jsonify(quote=quote)
-
 		return render_template('show.html.jinja', quote=quote)
-	elif request.method == 'DELETE':
+
+	if request.method == 'DELETE':
 		db_session.delete(quote)
 		db_session.commit()
 		return 'OK'
-	else:
-		return 'not yet implemented'
+
+	body = Quote.prepare(request.form['body'])
+	quote.body = body
+	db_session.add(quote)
+	db_session.commit()
+	return 'OK'
 
 
 @app.route('/<int:quote_id>/vote', methods=['POST'])

@@ -7,7 +7,16 @@
 		{% endif %}
 		{% if session.get('logged_in') %}
 		<button class="quote-delete_button" data-quote-id="{{ quote.id }}">Delete</button>
+		<button class="quote-edit_button" data-quote-id="{{ quote.id }}">Edit</button>
 		{% endif %}
 	</div>
 	<div class="quote-body">{{ quote.body | e }}</div>
+
+	{% if session.get('logged_in') %}
+	<form class="quote-edit hidden">
+		<textarea name="body" class="quote-edit-input">{{ quote.body }}</textarea>
+		<button type="button" data-quote-id="{{ quote.id }}" class="quote-edit-submit_button">Submit</button>
+		<button type="button" data-quote-id="{{ quote.id }}" class="quote-edit-cancel_button">Cancel</button>
+	</form>
+	{% endif %}
 </div>
