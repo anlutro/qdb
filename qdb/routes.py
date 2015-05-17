@@ -15,7 +15,8 @@ def home():
 
 	query = db_session.query(Quote) \
 		.filter(Quote.approved == True) \
-		.order_by(Quote.submitted_at.desc())
+		.order_by(Quote.submitted_at.desc()) \
+		.order_by(Quote.id.desc())
 
 	if search:
 		query = query.filter(Quote.body.ilike('%'+search+'%'))
