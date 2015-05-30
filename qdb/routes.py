@@ -10,17 +10,22 @@ from sqlalchemy.sql.expression import func
 
 @app.route('/')
 def home():
-	search = request.args.get('s')
-	page = int(request.args.get('p', 1))
-
 	query = db_session.query(Quote) \
-		.filter(Quote.approved == True) \
-		.order_by(Quote.submitted_at.desc()) \
-		.order_by(Quote.id.desc())
+		.filter(Quote.approved == True)
 
+	order = request.args.get('order', 'desc').lower()
+	if order == 'asc':
+		query = query.order_by(Quote.submitted_at.asc()) \
+			.order_by(Quote.id.asc())
+	else:
+		query = query.order_by(Quote.submitted_at.desc()) \
+			.order_by(Quote.id.desc())
+
+	search = request.args.get('s')
 	if search:
 		query = query.filter(Quote.body.ilike('%'+search+'%'))
 
+	page = int(request.args.get('p', 1))
 	if page > 0:
 		paginator = Paginator(query, page, request.url)
 		quotes = paginator.items
