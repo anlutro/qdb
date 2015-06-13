@@ -25,6 +25,7 @@
 				<li><a href="{{ url_for('pending') }}">Pending ({{ pending_count }})</a></li>
 				{% endif %}
 				<li><a href="{{ url_for('home') }}">Recent</a></li>
+				<li><a href="{{ url_for('home') }}?order=asc">Archive</a></li>
 				<li><a href="{{ url_for('random') }}">Random</a></li>
 				<li><a href="{{ url_for('submit') }}">Submit</a></li>
 			</ul>
