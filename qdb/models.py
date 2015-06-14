@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, Text, DateTime, Boolean
 from qdb.database import Base
 import re
+import datetime
 
 class Quote(Base):
 	__tablename__ = 'quotes'
@@ -16,6 +17,13 @@ class Quote(Base):
 		self.submitted_at = submitted_at
 		self.approved = approved
 		self.score = score
+
+	@property
+	def submitted_at_print(self):
+		dt = self.submitted_at
+		if dt.hour == 0 and dt.min == 0 and dt.sec == 0 and dt.microsecond == 0:
+			return datetime.date(dt.year, dt.month, dt.day)
+		return dt
 
 	@staticmethod
 	def prepare(quote):
