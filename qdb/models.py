@@ -21,7 +21,7 @@ class Quote(Base):
 	@property
 	def submitted_at_print(self):
 		dt = self.submitted_at
-		if dt.hour == 0 and dt.min == 0 and dt.sec == 0 and dt.microsecond == 0:
+		if dt.hour == 0 and dt.minute == 0 and dt.second == 0 and dt.microsecond == 0:
 			return datetime.date(dt.year, dt.month, dt.day)
 		return dt
 

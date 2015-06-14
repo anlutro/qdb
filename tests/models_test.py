@@ -16,4 +16,5 @@ class QuoteTest(unittest.TestCase):
 
 		dt = datetime.datetime(2015, 1, 1, 0, 0, 0)
 		quote = make_quote(submitted_at=dt)
+		self.assertNotIsInstance(quote.submitted_at_print, datetime.datetime)
 		self.assertIsInstance(quote.submitted_at_print, datetime.date)
