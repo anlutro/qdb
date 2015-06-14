@@ -41,15 +41,16 @@ init_db()
 def shutdown_session(exception=None):
 	db_session.remove()
 
-# inject the pending_count variable as a jinja global
+# inject global jinja variables
 from qdb.models import Quote
 from flask import session
 @app.context_processor
-def inject_pending_count():
-	if not session.get('logged_in'):
-		return dict()
+def jinja_globals():
+	context = dict()
 
-	query = db_session.query(Quote) \
-		.filter(Quote.approved == False)
-	count = query.count()
-	return {'pending_count': count}
+	if session.get('logged_in'):
+		context['pending_count'] = db_session.query(Quote) \
+			.filter(Quote.approved == False) \
+			.count()
+
+	return context
