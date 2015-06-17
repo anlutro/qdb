@@ -10,7 +10,7 @@
 		<button class="quote-edit_button" data-quote-id="{{ quote.id }}">Edit</button>
 		{% endif %}
 	</div>
-	<div class="quote-body">{{ quote.body | e }}</div>
+	<div class="quote-body">{{ quote.body | e | urlize(target='_blank') }}</div>
 
 	{% if session.get('logged_in') %}
 	<form class="quote-edit hidden">
