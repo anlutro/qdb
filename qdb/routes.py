@@ -117,6 +117,9 @@ def show(quote_id):
 			return jsonify(quote=quote)
 		return render_template('show.html.jinja', quote=quote)
 
+	if not session.get('logged_in'):
+		return abort(401)
+
 	if request.method == 'DELETE':
 		db_session.delete(quote)
 		db_session.commit()
@@ -129,20 +132,11 @@ def show(quote_id):
 	return 'OK'
 
 
-@app.route('/<int:quote_id>/vote', methods=['POST'])
-def vote(quote_id):
-	quote = db_session.query(Quote) \
-		.filter(Quote.id == quote_id) \
-		.first()
-
-	if not quote:
-		return abort(404)
-
-	return 'not yet implemented'
-
-
 @app.route('/<int:quote_id>/approve', methods=['POST'])
 def approve(quote_id):
+	if not session.get('logged_in'):
+		return abort(401)
+
 	quote = db_session.query(Quote) \
 		.filter(Quote.id == quote_id) \
 		.first()
