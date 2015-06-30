@@ -59,7 +59,7 @@ def random():
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
-	if request.method == 'GET':
+	if request.method == 'GET' or request.method == 'HEAD':
 		return render_template('form.html.jinja',
 			form_action=url_for('submit'),
 			body='',
@@ -112,7 +112,7 @@ def show(quote_id):
 	if not quote:
 		return abort(404)
 
-	if request.method == 'GET':
+	if request.method == 'GET' or request.method == 'HEAD':
 		if request.headers.get('Accept') == 'application/json':
 			return jsonify(quote=quote)
 		return render_template('show.html.jinja', quote=quote)
