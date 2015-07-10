@@ -44,14 +44,15 @@ def home():
 
 @app.route('/random')
 def random():
-	query = db_session.query(Quote) \
-		.filter(Quote.approved == True) \
-		.order_by(func.random()) \
-		.limit(10)
+	query = db_session.query(Quote)
 
 	search = request.args.get('s')
 	if search:
 		query = query.filter(Quote.body.ilike('%'+search+'%'))
+
+	query = query.filter(Quote.approved == True) \
+		.order_by(func.random()) \
+		.limit(10)
 
 	quotes = query.all()
 
