@@ -49,6 +49,10 @@ def random():
 		.order_by(func.random()) \
 		.limit(10)
 
+	search = request.args.get('s')
+	if search:
+		query = query.filter(Quote.body.ilike('%'+search+'%'))
+
 	quotes = query.all()
 
 	if request.headers.get('Accept') == 'application/json':
