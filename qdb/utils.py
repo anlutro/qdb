@@ -12,7 +12,6 @@ class CustomJSONEncoder(JSONEncoder):
 				'id': obj.id,
 				'body': obj.body,
 				'submitted_at': obj.submitted_at.isoformat(),
-				'approved': obj.approved,
 			}
 		if isinstance(obj, Paginator):
 			return {
