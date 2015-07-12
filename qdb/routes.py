@@ -1,4 +1,5 @@
 from qdb import app
+
 from datetime import datetime
 from flask import (url_for, render_template, jsonify,
 	redirect, abort, flash, request, session)
@@ -26,20 +27,36 @@ def home():
 		query = query.filter(Quote.body.ilike('%'+search+'%'))
 
 	page = int(request.args.get('p', 1))
-	if page > 0:
-		paginator = Paginator(query, page, request.url)
-		quotes = paginator.items
+	if page < 1:
+		page = 1
+	paginator = Paginator(query, page, request.url)
+	quotes = paginator.items
 
-		if request.headers.get('Accept') == 'application/json':
-			return jsonify(quotes=paginator)
-	else:
-		paginator = None
-		quotes = query.all()
-
-		if request.headers.get('Accept') == 'application/json':
-			return jsonify(quotes=quotes)
+	if request.headers.get('Accept') == 'application/json':
+		return jsonify(quotes=paginator)
 
 	return render_template('list.html.jinja', quotes=quotes, paginator=paginator)
+
+
+@app.route('/all')
+def get_all():
+	query = db_session.query(Quote) \
+		.filter(Quote.approved == True)
+
+	order = request.args.get('order', 'desc').lower()
+	if order == 'asc':
+		query = query.order_by(Quote.submitted_at.asc()) \
+			.order_by(Quote.id.asc())
+	else:
+		query = query.order_by(Quote.submitted_at.desc()) \
+			.order_by(Quote.id.desc())
+
+	quotes = query.all()
+
+	if request.headers.get('Accept') == 'application/json':
+		return jsonify(quotes=quotes)
+
+	return render_template('list.html.jinja', quotes=quotes)
 
 
 @app.route('/random')

@@ -46,6 +46,10 @@
 	{% block main %}{% endblock %}
 	</main>
 
+	<footer class="footer clearfix">
+		<code>curl -H 'Accept: application/json' qdb.lutro.me/all</code>
+	</footer>
+
 	<script src="{{ url_for('static', filename='script.js') }}"></script>
 	{% block js %}{% endblock %}
 </body>
