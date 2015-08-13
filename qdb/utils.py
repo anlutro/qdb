@@ -8,12 +8,7 @@ import qdb.models
 class CustomJSONEncoder(JSONEncoder):
 	def default(self, obj):
 		if isinstance(obj, qdb.models.Quote):
-			return {
-				'id': obj.id,
-				'body': obj.body,
-				'submitted_at': obj.submitted_at.isoformat(),
-				'approved': obj.approved,
-			}
+			return obj.to_json_dict()
 		if isinstance(obj, Paginator):
 			return {
 				'items': obj.items,

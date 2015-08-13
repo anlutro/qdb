@@ -7,6 +7,7 @@ from qdb.models import Quote
 from qdb.database import db_session
 from qdb.utils import Paginator
 from sqlalchemy.sql.expression import func
+import qdb.ircbot as ircbot
 
 
 @app.route('/')
@@ -92,6 +93,9 @@ def submit():
 	db_session.add(quote)
 	db_session.commit()
 
+	if app.config.get('ENABLE_IRCBOT_WEBHOOKS'):
+		ircbot.notify_bot(quote)
+
 	flash('Quote added!')
 	return redirect(url_for('home'))
 
@@ -169,4 +173,8 @@ def approve(quote_id):
 	quote.approved = True
 	db_session.add(quote)
 	db_session.commit()
+
+	if app.config.get('ENABLE_IRCBOT_WEBHOOKS'):
+		ircbot.notify_bot(quote)
+
 	return 'OK'

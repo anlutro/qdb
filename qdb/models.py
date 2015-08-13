@@ -40,3 +40,11 @@ class Quote(Base):
 		quote = quote.replace('\r', '')
 
 		return quote
+
+	def to_json_dict(self):
+		return {
+			'id': self.id,
+			'body': self.body,
+			'submitted_at': self.submitted_at.isoformat(),
+			'approved': self.approved,
+		}
