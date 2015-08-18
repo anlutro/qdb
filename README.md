@@ -1,6 +1,6 @@
 # QDB
 
-[![Build Status](https://travis-ci.org/autarky/framework.png?branch=master)](https://travis-ci.org/autarky/framework)
+[![Build Status](https://travis-ci.org/anlutro/qdb.png?branch=master)](https://travis-ci.org/anlutro/qdb)
 
 ## Installation
 
