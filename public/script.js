@@ -81,7 +81,7 @@
 
 		for (var i = elements.length - 1; i >= 0; i--) {
 			elements[i].addEventListener('click', listenerFunc, false);
-		};
+		}
 	}
 
 	addClickListener('quote-approve_button', approveQuote);

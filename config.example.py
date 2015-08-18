@@ -9,5 +9,6 @@ PASSWORD = 'whathefuck'
 
 # the sqlite database string
 # http://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls
-DB = 'sqlite:////home/myuser/qdb/tmp/test.db'
-# DB = 'postgresql://scott:qdb@localhost/qdb'
+import os.path
+DB = 'sqlite:////{}/tmp/test.db'.format(os.path.dirname(__file__))
+# DB = 'postgresql://user:pass@localhost/dbname'

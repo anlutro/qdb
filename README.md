@@ -1,5 +1,7 @@
 # QDB
 
+[![Build Status](https://travis-ci.org/autarky/framework.png?branch=master)](https://travis-ci.org/autarky/framework)
+
 ## Installation
 
 Create a virtualenv for python 3:
