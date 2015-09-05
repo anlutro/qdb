@@ -74,6 +74,9 @@ body {
 	padding-bottom: .5em;
 	margin-bottom: .5em;
 }
+.quote-info button {
+	vertical-align: text-bottom;
+}
 .quote-body {
 	font-family: monospace;
 	white-space: pre-wrap;
