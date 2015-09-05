@@ -89,7 +89,7 @@ def submit():
 		)
 
 	body = Quote.prepare(request.form['body'])
-	quote = Quote(body, datetime.now())
+	quote = Quote(body, datetime.now(), request.remote_addr)
 	db_session.add(quote)
 	db_session.commit()
 

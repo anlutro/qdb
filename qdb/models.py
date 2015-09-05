@@ -9,11 +9,13 @@ class Quote(Base):
 	id = Column(Integer, primary_key=True)
 	body = Column(Text)
 	submitted_at = Column(DateTime)
+	submitter_ip = Column(Text)
 	approved = Column(Boolean)
 
-	def __init__(self, body, submitted_at, approved=False):
+	def __init__(self, body, submitted_at, submitter_ip, approved=False):
 		self.body = body
 		self.submitted_at = submitted_at
+		self.submitter_ip = submitter_ip
 		self.approved = approved
 
 	@property
