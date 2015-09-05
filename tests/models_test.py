@@ -3,10 +3,10 @@ import datetime
 
 from qdb.models import Quote
 
-def make_quote(body='', submitted_at=None, score=0, approved=False):
+def make_quote(body='', submitted_at=None, approved=False):
 	if not submitted_at:
 		submitted_at = datetime.datetime.now()
-	return Quote(body, submitted_at, score, approved)
+	return Quote(body, submitted_at, approved)
 
 class QuoteTest(unittest.TestCase):
 	def test_submitted_at_print_is_correct_type(self):

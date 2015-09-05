@@ -10,13 +10,11 @@ class Quote(Base):
 	body = Column(Text)
 	submitted_at = Column(DateTime)
 	approved = Column(Boolean)
-	score = Column(Integer)
 
-	def __init__(self, body, submitted_at, score=0, approved=False):
+	def __init__(self, body, submitted_at, approved=False):
 		self.body = body
 		self.submitted_at = submitted_at
 		self.approved = approved
-		self.score = score
 
 	@property
 	def submitted_at_print(self):
