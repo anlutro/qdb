@@ -23,7 +23,9 @@
 		<nav class="main-nav">
 			<ul class="menu">
 				{% if session.get('logged_in') %}
-				<li><a href="{{ url_for('pending') }}">Pending ({{ pending_count }})</a></li>
+				<li><a href="{{ url_for('pending') }}">
+					Pending (<span id="pending-count">{{ pending_count }}</span>)
+				</a></li>
 				{% endif %}
 				<li><a href="{{ url_for('home') }}">Recent</a></li>
 				<li><a href="{{ url_for('home') }}?order=asc">Archive</a></li>

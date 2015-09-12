@@ -13,6 +13,15 @@
 		e.parentElement.removeChild(e);
 	}
 
+	function decrementPendingCounter()
+	{
+		var e = document.getElementById('pending-count');
+		if (!e) {
+			return;
+		}
+		e.innerText = parseInt(e.innerText) - 1;
+	}
+
 	function approveQuote()
 	{
 		var quoteId = this.dataset.quoteId;
@@ -20,6 +29,7 @@
 		makeHttpRequest('POST', url, null, function() {
 			if (this.readyState === 4 && this.status === 200) {
 				alert('Quote approved!');
+				decrementPendingCounter();
 				removeElementById('quote-'+quoteId);
 			}
 		});
