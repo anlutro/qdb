@@ -85,6 +85,11 @@
 		});
 	}
 
+	function disableSubmitButton(submitEvent)
+	{
+		this.disabled = true;
+	}
+
 	function addClickListener(className, listenerFunc)
 	{
 		var elements = document.getElementsByClassName(className);
@@ -99,4 +104,5 @@
 	addClickListener('quote-edit_button', editQuote);
 	addClickListener('quote-edit-submit_button', submitEditQuote);
 	addClickListener('quote-edit-cancel_button', cancelEditQuote);
+	addClickListener('submit-form-button', disableSubmitButton);
 })();
