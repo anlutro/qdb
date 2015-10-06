@@ -49,3 +49,7 @@ In production I recommend running the app with UWSGI. Here's an example uwsgi.in
 	logger = file:/var/log/www/qdb/uwsgi.log
 	lazy-apps = True
 	master = True
+
+## License
+
+The contents of this repository is released under the [MIT license](http://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file included for more information.
