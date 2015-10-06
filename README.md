@@ -4,6 +4,11 @@
 
 ## Installation
 
+Clone the repository:
+
+	$ git clone https://github.com/anlutro/qdb
+	$ cd qdb
+
 Create a virtualenv for python 3:
 
 	$ virtualenv -p python3 .virtualenv
@@ -26,8 +31,21 @@ Copy the config example file to `config.py`:
 
 Replace the data in config.py as needed.
 
-Run the application:
+Run the application (for local development only):
 
 	$ ./run
 
-Check the URL given on the command line to make sure it works.
+Go to `localhost:5000` in your browser of choice to make sure it works.
+
+## UWSGI
+
+In production I recommend running the app with UWSGI. Here's an example uwsgi.ini:
+
+	[uwsgi]
+	plugin = python3,logfile
+	module = qdb:app
+	chdir = /var/www/qdb
+	venv = /var/www/qdb/.virtualenv
+	logger = file:/var/log/www/qdb/uwsgi.log
+	lazy-apps = True
+	master = True
