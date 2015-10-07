@@ -88,6 +88,8 @@
 	function disableSubmitButton(submitEvent)
 	{
 		this.disabled = true;
+		this.value = 'Submitting...';
+		this.form.submit();
 	}
 
 	function addClickListener(className, listenerFunc)
