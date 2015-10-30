@@ -118,15 +118,22 @@ def pending():
 	return render_template('list.html.jinja', quotes=quotes)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-	if request.args.get('password') == app.config.get('PASSWORD'):
-		session['logged_in'] = True
-		flash('You are now logged in!')
-	else:
-		flash('Incorrect password!')
+	if session.get('logged_in'):
+		flash('You are already logged in!')
+		return redirect(url_for('home'))
 
-	return redirect(url_for('home'))
+	if request.method == 'GET' or request.method == 'HEAD':
+		return render_template('login.html.jinja', form_action=url_for('login'))
+
+	if request.form.get('password') == app.config.get('PASSWORD'):
+		session['logged_in'] = True
+		flash('Successfully logged in!')
+		return redirect(url_for('home'))
+
+	flash('Incorrect password!')
+	return redirect(url_for('login'))
 
 
 @app.route('/<int:quote_id>', methods=['GET', 'DELETE', 'PATCH'])

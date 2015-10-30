@@ -1,0 +1,10 @@
+{% extends 'layout.html.jinja' %}
+
+{% block main %}
+<h1>Log in</h1>
+
+<form action="{{ form_action }}" method="post" class="form login-form">
+	<input name="password" type="password">
+	<input type="submit" class="submit-form-button">
+</form>
+{% endblock %}
