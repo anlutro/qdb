@@ -50,7 +50,7 @@
 	</main>
 
 	<footer class="footer clearfix">
-		<code>curl -H 'Accept: application/json' qdb.lutro.me/all</code>
+        <code>curl -H 'Accept: application/json' {{ url_for('get_all', _external=True) }}</code>
 	</footer>
 
 	<script src="{{ url_for('static', filename='script.js') }}"></script>

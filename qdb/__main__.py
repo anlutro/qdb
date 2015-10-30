@@ -1,6 +1,6 @@
 from qdb import app
 
 if app.debug:
-	app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
 else:
-	app.run()
+    app.run()
