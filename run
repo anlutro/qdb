@@ -3,7 +3,7 @@
 dir=$(dirname $(readlink -f $0))
 
 if [ -z $VIRTUAL_ENV ]; then
-    python=$dir/$VIRTUAL_ENV/bin/python
+    python=$dir/.virtualenv/bin/python
 else
 	python=python
 fi
