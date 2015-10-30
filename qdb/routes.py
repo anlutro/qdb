@@ -83,10 +83,7 @@ def random():
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
 	if request.method in ('GET', 'HEAD'):
-		return render_template('form.html.jinja',
-			form_action=url_for('submit'),
-			body='',
-		)
+		return render_template('form.html.jinja', body='')
 
 	body = Quote.prepare(request.form['body'])
 	quote = Quote(body, datetime.now(), request.remote_addr)
@@ -125,7 +122,7 @@ def login():
 		return redirect(url_for('home'))
 
 	if request.method in ('GET', 'HEAD'):
-		return render_template('login.html.jinja', form_action=url_for('login'))
+		return render_template('login.html.jinja')
 
 	if request.form.get('password') == app.config.get('PASSWORD'):
 		session['logged_in'] = True

@@ -3,7 +3,7 @@
 {% block main %}
 <h1>Submit quote</h1>
 
-<form action="{{ form_action }}" method="post" class="form submit_quote-form">
+<form action="{{ url_for('submit') }}" method="post" class="form submit_quote-form">
 	<textarea name="body">{{ body }}</textarea>
 	<input type="submit" class="submit-form-button">
 </form>
