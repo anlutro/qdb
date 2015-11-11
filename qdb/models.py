@@ -29,16 +29,21 @@ class Quote(Base):
 			return datetime.date(dt.year, dt.month, dt.day)
 		return dt
 
-	@staticmethod
-	def prepare(quote):
+	_ts_expr = re.compile(
+		r'^[\[\(]?\d{1,2}\:?\d{2}(\:?\d{2})?(\s*(AM|PM))?[\]\)]?\s*'
+	)
+	_mode_expr = re.compile(
+		r'(\<)([\s\@\+])([a-z0-9_-`\\]+\>)'
+	)
+
+	@classmethod
+	def prepare(cls, quote):
 		# remove timestamps from the start of each line in the quote
-		expr = re.compile(
-			r'^[\[\(]?\d{1,2}\:?\d{2}(\:?\d{2})?(\s*(AM|PM))?[\]\)]?\s*'
-		)
 		lines = []
 		for line in quote.split('\n'):
-			lines.append(expr.sub('', line))
+			lines.append(cls._ts_expr.sub('', line))
 		quote = '\n'.join(lines)
+		quote = cls._mode_expr.sub(r'\1\3', quote)
 
 		# replace tabs with spaces
 		quote = re.sub(r'\t+', ' ', quote)

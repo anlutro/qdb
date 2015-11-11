@@ -18,3 +18,13 @@ class QuoteTest(unittest.TestCase):
 		quote = make_quote(submitted_at=dt)
 		self.assertNotIsInstance(quote.submitted_at_print, datetime.datetime)
 		self.assertIsInstance(quote.submitted_at_print, datetime.date)
+
+	def test_prepare_strips_timestamp(self):
+		text = '[01:23] <asdf> foobar\n[01:23]  * asdf stuff'
+		expected = '<asdf> foobar\n* asdf stuff'
+		self.assertEqual(expected, Quote.prepare(text))
+
+	def test_strips_voice_and_ops(self):
+		text = '<+a> a\n<@b> b\n< c> c'
+		expected = '<a> a\n<b> b\n<c> c'
+		self.assertEqual(expected, Quote.prepare(text))
