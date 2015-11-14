@@ -126,9 +126,7 @@ def login():
 		return redirect(url_for('home'))
 
 	if request.method in ('GET', 'HEAD'):
-		return render_template(
-			'login.html.jinja',
-		)
+		return render_template('login.html.jinja')
 
 	if request.form.get('password') == app.config.get('PASSWORD'):
 		session['logged_in'] = True
