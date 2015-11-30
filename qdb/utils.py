@@ -7,6 +7,12 @@ from flask.json import JSONEncoder
 import qdb.models
 
 
+def is_spam(text):
+	likelyhood = sum(text.count(s) for s in ('<a href', '[url', '[link'))
+
+	return likelyhood > 2
+
+
 class CustomJSONEncoder(JSONEncoder):
 	def default(self, obj):
 		if isinstance(obj, qdb.models.Quote):

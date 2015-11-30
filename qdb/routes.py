@@ -5,7 +5,7 @@ from flask import (url_for, render_template, jsonify, redirect, abort, flash,
 	request, session)
 from qdb.models import Quote
 from qdb.database import db_session
-from qdb.utils import Paginator
+from qdb.utils import Paginator, is_spam
 from sqlalchemy.sql.expression import func
 import qdb.ircbot as ircbot
 
@@ -88,6 +88,9 @@ def random():
 def submit():
 	if request.method in ('GET', 'HEAD'):
 		return render_template('form.html.jinja', body='')
+
+	if is_spam(request.form['body']):
+		return abort(400)
 
 	body = Quote.prepare(request.form['body'])
 	quote = Quote(body, datetime.now(), request.remote_addr)
