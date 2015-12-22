@@ -20,12 +20,12 @@ if not app.debug:
 		bytecode_cache=FileSystemBytecodeCache(j2cachedir, '%s.cache'),
 	)
 
-	# set up logging to stderr
-	import logging
-	import sys
-	file_handler = logging.StreamHandler(sys.stderr)
-	file_handler.setLevel(logging.WARNING)
-	app.logger.addHandler(file_handler)
+# set up logging to stderr
+import logging
+import sys
+file_handler = logging.StreamHandler(sys.stderr)
+file_handler.setLevel(logging.WARNING)
+app.logger.addHandler(file_handler)
 
 # replace the json encoder
 from qdb.utils import CustomJSONEncoder
