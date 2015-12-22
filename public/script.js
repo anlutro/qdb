@@ -107,4 +107,15 @@
 	addClickListener('quote-edit-submit_button', submitEditQuote);
 	addClickListener('quote-edit-cancel_button', cancelEditQuote);
 	addClickListener('submit-form-button', disableSubmitButton);
+
+	function focusElementIfExists(id)
+	{
+		var element = document.getElementById(id);
+
+		if (element) {
+			element.focus();
+		}
+	}
+
+	focusElementIfExists('login-password_input');
 })();
