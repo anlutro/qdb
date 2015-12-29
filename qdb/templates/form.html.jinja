@@ -6,5 +6,6 @@
 <form action="{{ url_for('submit') }}" method="post" class="form submit_quote-form">
 	<textarea name="body">{{ body }}</textarea>
 	<input type="submit" class="submit-form-button">
+	<label><input type="checkbox" name="strip_timestamps" checked> Strip timestamps</label>
 </form>
 {% endblock %}

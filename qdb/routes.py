@@ -92,7 +92,10 @@ def submit():
 	if is_spam(request.form['body']):
 		return abort(400)
 
-	body = Quote.prepare(request.form['body'])
+	body = Quote.prepare(
+		request.form['body'],
+		strip_timestamps=bool(request.form.get('strip_timestamps'))
+	)
 	quote = Quote(body, datetime.now(), request.remote_addr)
 	db_session.add(quote)
 	db_session.commit()

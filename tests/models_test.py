@@ -3,10 +3,12 @@ import datetime
 
 from qdb.models import Quote
 
+
 def make_quote(body='', submitted_at=None, submitter_ip=None, approved=False):
 	if not submitted_at:
 		submitted_at = datetime.datetime.now()
 	return Quote(body, submitted_at, submitter_ip, approved)
+
 
 class QuoteTest(unittest.TestCase):
 	def test_submitted_at_print_is_correct_type(self):
@@ -21,6 +23,8 @@ class QuoteTest(unittest.TestCase):
 
 	def test_prepare_strips_timestamp(self):
 		text = '[01:23] <asdf> foobar\n[01:23]  * asdf stuff'
+		self.assertEqual(text, Quote.prepare(text, strip_timestamps=False))
+
 		expected = '<asdf> foobar\n* asdf stuff'
 		self.assertEqual(expected, Quote.prepare(text))
 
