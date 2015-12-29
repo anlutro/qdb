@@ -18,6 +18,7 @@
 		<textarea name="body" class="quote-edit-input">{{ quote.body }}</textarea>
 		<button type="button" data-quote-id="{{ quote.id }}" class="quote-edit-submit_button">Submit</button>
 		<button type="button" data-quote-id="{{ quote.id }}" class="quote-edit-cancel_button">Cancel</button>
+		<label><input type="checkbox" name="strip_timestamps" checked> Strip timestamps</label>
 	</form>
 	{% endif %}
 </div>

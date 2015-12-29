@@ -165,7 +165,10 @@ def show(quote_id):
 		db_session.commit()
 		return 'OK'
 
-	body = Quote.prepare(request.form['body'])
+	body = Quote.prepare(
+		request.form['body'],
+		strip_timestamps=bool(request.form.get('strip_timestamps'))
+	)
 	quote.body = body
 	db_session.add(quote)
 	db_session.commit()
