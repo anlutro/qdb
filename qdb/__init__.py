@@ -3,7 +3,7 @@ import os.path
 root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 # initiate the flask app
-from flask import Flask
+from flask import Flask, session, url_for
 app = Flask(__name__, static_folder=os.path.join(root, 'public'))
 
 # runtime/local configuration via config.py
@@ -38,16 +38,12 @@ import qdb.routes
 from qdb.database import init_db, db_session
 init_db()
 
-
 @app.teardown_appcontext
 def shutdown_session(exception=None):
 	db_session.remove()
 
-
 # inject global jinja variables
 from qdb.models import Quote
-from flask import session
-
 
 @app.context_processor
 def jinja_globals():
@@ -57,5 +53,28 @@ def jinja_globals():
 		context['pending_count'] = db_session.query(Quote) \
 			.filter(Quote.approved == False) \
 			.count()
+
+	# cache busting URLs
+	if not app.debug:
+		url_cache = {}
+
+		def dated_url_for(endpoint, **values):
+			if endpoint == 'static':
+				filename = values.get('filename')
+				if filename:
+					if filename not in url_cache:
+						file_path = os.path.join(app.static_folder, filename)
+						if os.path.isfile(file_path):
+							timestamp = int(os.stat(file_path).st_mtime)
+							directory, filename = os.path.split(filename)
+							filename, extension = filename.split('.', 1)
+							filename = '{}.{}.{}'.format(filename, timestamp, extension)
+							url_cache[filename] = os.path.join(directory, filename)
+						else:
+							url_cache[filename] = filename
+					values['filename'] = url_cache[filename]
+			return url_for(endpoint, **values)
+
+		context['url_for'] = dated_url_for
 
 	return context
