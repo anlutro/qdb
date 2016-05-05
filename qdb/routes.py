@@ -97,6 +97,8 @@ def submit():
 		strip_timestamps=bool(request.form.get('strip_timestamps'))
 	)
 	quote = Quote(body, datetime.now(), request.remote_addr)
+	if session.get('logged_in'):
+		quote.approved = True
 	db_session.add(quote)
 	db_session.commit()
 
