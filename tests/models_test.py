@@ -29,6 +29,6 @@ class QuoteTest(unittest.TestCase):
 		self.assertEqual(expected, Quote.prepare(text))
 
 	def test_strips_voice_and_ops(self):
-		text = '<+a> a\n<@b> b\n< c> c'
-		expected = '<a> a\n<b> b\n<c> c'
+		text = '<+Abc> a\n<@dEf> b\n< ghJ> c'
+		expected = '<Abc> a\n<dEf> b\n<ghJ> c'
 		self.assertEqual(expected, Quote.prepare(text))

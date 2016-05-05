@@ -43,7 +43,7 @@ class Quote(Base):
 
 		if strip_modes:
 			# remove @ + in front of people's nicks
-			quote = re.sub(r'(\<)([\s\@\+])([a-z0-9_-`\\]+\>)', r'\1\3', quote)
+			quote = re.sub(r'(\<)([\s\@\+])([A-z0-9_-`\\]+\>)', r'\1\3', quote)
 
 		if normalize_whitespace:
 			# replace tabs with spaces
