@@ -35,9 +35,22 @@
 		});
 	}
 
+	function rejectQuote()
+	{
+		var quoteId = this.dataset.quoteId;
+		var url = '/'+quoteId+'/reject';
+		makeHttpRequest('POST', url, null, function() {
+			if (this.readyState === 4 && this.status === 200) {
+				alert('Quote rejected!');
+				decrementPendingCounter();
+				removeElementById('quote-'+quoteId);
+			}
+		});
+	}
+
 	function deleteQuote()
 	{
-		if (!window.confirm('Are you sure you want to delete this quote?')) {
+		if (!window.confirm('Are you sure you want to delete this quote? This cannot be undone!')) {
 			return;
 		}
 		var quoteId = this.dataset.quoteId;
@@ -102,6 +115,7 @@
 	}
 
 	addClickListener('quote-approve_button', approveQuote);
+	addClickListener('quote-reject_button', rejectQuote);
 	addClickListener('quote-delete_button', deleteQuote);
 	addClickListener('quote-edit_button', editQuote);
 	addClickListener('quote-edit-submit_button', submitEditQuote);

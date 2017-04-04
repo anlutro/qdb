@@ -2,14 +2,17 @@
 	<div class="quote-info">
 		<span class="quote-id"><a href="{{ url_for('show', quote_id=quote.id) }}">#{{ quote.id }}</a></span>
 		<time datetime="{{ quote.submitted_at.isoformat() }}" class="quote-submitted_at">{{ quote.submitted_at_print }}</time>
-		{% if session.get('logged_in') and not quote.approved %}
+	{% if session.get('logged_in') %}
+		{% if not quote.approved %}
 		<button class="quote-approve_button" data-quote-id="{{ quote.id }}">Approve</button>
 		{% endif %}
-		{% if session.get('logged_in') %}
+		{% if quote.approved != false %}
+		<button class="quote-reject_button" data-quote-id="{{ quote.id }}">Reject</button>
+		{% endif %}
 		<button class="quote-delete_button" data-quote-id="{{ quote.id }}">Delete</button>
 		<button class="quote-edit_button" data-quote-id="{{ quote.id }}">Edit</button>
 		<span class="submitter-ip">{{ quote.submitter_ip or 'Unknown submitter' }}</span>
-		{% endif %}
+	{% endif %}
 	</div>
 	<div class="quote-body">{{ quote.body | e | urlize }}</div>
 

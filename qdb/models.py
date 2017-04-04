@@ -13,7 +13,7 @@ class Quote(Base):
 	submitter_ip = Column(Text)
 	approved = Column(Boolean)
 
-	def __init__(self, body, submitted_at, submitter_ip, approved=False):
+	def __init__(self, body, submitted_at, submitter_ip, approved=None):
 		self.body = body
 		self.submitted_at = submitted_at
 		self.submitter_ip = submitter_ip

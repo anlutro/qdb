@@ -39,7 +39,7 @@ def home():
 	return render_template(
 		'list.html.jinja',
 		quotes=quotes,
-		paginator=paginator
+		paginator=paginator,
 	)
 
 
@@ -116,7 +116,7 @@ def pending():
 		return redirect(url_for('home'))
 
 	query = db_session.query(Quote) \
-		.filter(Quote.approved == False) \
+		.filter(Quote.approved == None) \
 		.order_by(Quote.submitted_at.desc())
 
 	quotes = query.all()
@@ -125,6 +125,35 @@ def pending():
 		return jsonify(quotes=quotes)
 
 	return render_template('list.html.jinja', quotes=quotes)
+
+
+@app.route('/rejected')
+def rejected():
+	query = db_session.query(Quote) \
+		.filter(Quote.approved == False)
+
+	order = request.args.get('order', 'desc').lower()
+	if order == 'asc':
+		query = query.order_by(Quote.submitted_at.asc()) \
+			.order_by(Quote.id.asc())
+	else:
+		query = query.order_by(Quote.submitted_at.desc()) \
+			.order_by(Quote.id.desc())
+
+	page = int(request.args.get('p', 1))
+	if page < 1:
+		page = 1
+	paginator = Paginator(query, page, request.url)
+	quotes = paginator.items
+
+	if request.headers.get('Accept') == 'application/json':
+		return jsonify(quotes=paginator)
+
+	return render_template(
+		'list.html.jinja',
+		quotes=quotes,
+		paginator=paginator,
+	)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -167,11 +196,10 @@ def show(quote_id):
 		db_session.commit()
 		return 'OK'
 
-	body = Quote.prepare(
+	quote.body = Quote.prepare(
 		request.form['body'],
 		strip_timestamps=bool(request.form.get('strip_timestamps'))
 	)
-	quote.body = body
 	db_session.add(quote)
 	db_session.commit()
 	return 'OK'
@@ -195,5 +223,24 @@ def approve(quote_id):
 
 	if app.config.get('ENABLE_IRCBOT_WEBHOOKS'):
 		ircbot.notify_bot(quote)
+
+	return 'OK'
+
+
+@app.route('/<int:quote_id>/reject', methods=['POST'])
+def reject(quote_id):
+	if not session.get('logged_in'):
+		return abort(401)
+
+	quote = db_session.query(Quote) \
+		.filter(Quote.id == quote_id) \
+		.first()
+
+	if not quote:
+		return abort(404)
+
+	quote.approved = False
+	db_session.add(quote)
+	db_session.commit()
 
 	return 'OK'

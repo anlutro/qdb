@@ -51,7 +51,7 @@ def jinja_globals():
 
 	if session.get('logged_in'):
 		context['pending_count'] = db_session.query(Quote) \
-			.filter(Quote.approved == False) \
+			.filter(Quote.approved == None) \
 			.count()
 
 	# cache busting URLs
