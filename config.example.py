@@ -13,7 +13,9 @@ import os.path
 DB = 'sqlite:////{}/tmp/test.db'.format(os.path.dirname(__file__))
 # DB = 'postgresql://user:pass@localhost/dbname'
 
-ENABLE_OPBEAT = False
-OPBEAT_ORG = '...'
-OPBEAT_APP = '...'
-OPBEAT_SECRET = '...'
+OPBEAT = False
+# OPBEAT = {
+# 	'ORGANIZATION_ID': '<ORGANIZATION-ID>',
+# 	'APP_ID': '<APP-ID>',
+# 	'SECRET_TOKEN': '<SECRET-TOKEN>',
+# }

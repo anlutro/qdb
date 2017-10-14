@@ -27,14 +27,9 @@ file_handler = logging.StreamHandler(sys.stderr)
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
-if app.config.get('ENABLE_OPBEAT'):
+if app.config.get('OPBEAT'):
 	from opbeat.contrib.flask import Opbeat
-	opbeat = Opbeat(
-	    app,
-	    organization_id=app.config['OPBEAT_ORG'],
-	    app_id=app.config['OPBEAT_APP'],
-	    secret_token=app.config['OPBEAT_SECRET'],
-	)
+	opbeat = Opbeat(app)
 
 
 # replace the json encoder
