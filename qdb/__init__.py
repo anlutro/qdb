@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder=os.path.join(root, 'public'))
 
 # runtime/local configuration via config.py
 cfg_file_path = os.path.join(root, 'config.py')
-app.config.from_pyfile(cfg_file_path)
+app.config.get('from_pyfile')(cfg_file_path)
 
 if not app.debug:
 	# enable bytecode caching for templates
@@ -27,13 +27,13 @@ file_handler = logging.StreamHandler(sys.stderr)
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
-if app.config.OPBEAT:
+if app.config.get('OPBEAT'):
 	from opbeat.contrib.flask import Opbeat
 	opbeat = Opbeat(
 	    app,
-	    organization_id=app.config.OPBEAT_ORG,
-	    app_id=app.config.OPBEAT_APP,
-	    secret_token=app.config.OPBEAT_SECRET,
+	    organization_id=app.config['OPBEAT_ORG'],
+	    app_id=app.config['OPBEAT_APP'],
+	    secret_token=app.config['OPBEAT_SECRET'],
 	)
 
 
