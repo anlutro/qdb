@@ -27,6 +27,16 @@ file_handler = logging.StreamHandler(sys.stderr)
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
+if app.config.OPBEAT:
+	from opbeat.contrib.flask import Opbeat
+	opbeat = Opbeat(
+	    app,
+	    organization_id=app.config.OPBEAT_ORG,
+	    app_id=app.config.OPBEAT_APP,
+	    secret_token=app.config.OPBEAT_SECRET,
+	)
+
+
 # replace the json encoder
 from qdb.utils import CustomJSONEncoder
 app.json_encoder = CustomJSONEncoder

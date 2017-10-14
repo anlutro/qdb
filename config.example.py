@@ -12,3 +12,8 @@ PASSWORD = 'whathefuck'
 import os.path
 DB = 'sqlite:////{}/tmp/test.db'.format(os.path.dirname(__file__))
 # DB = 'postgresql://user:pass@localhost/dbname'
+
+OPBEAT = False
+OPBEAT_ORG = '...'
+OPBEAT_APP = '...'
+OPBEAT_SECRET = '...'

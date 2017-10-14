@@ -1,0 +1,1 @@
+opbeat[flask]==3.5.2
