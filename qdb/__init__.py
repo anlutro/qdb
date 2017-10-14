@@ -27,7 +27,7 @@ file_handler = logging.StreamHandler(sys.stderr)
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
-if app.config.get('OPBEAT'):
+if app.config.get('ENABLE_OPBEAT'):
 	from opbeat.contrib.flask import Opbeat
 	opbeat = Opbeat(
 	    app,
