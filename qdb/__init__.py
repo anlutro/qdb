@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder=os.path.join(root, 'public'))
 
 # runtime/local configuration via config.py
 cfg_file_path = os.path.join(root, 'config.py')
-app.config.get('from_pyfile')(cfg_file_path)
+app.config.from_pyfile(cfg_file_path)
 
 if not app.debug:
 	# enable bytecode caching for templates
