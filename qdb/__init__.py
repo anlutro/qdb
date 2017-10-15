@@ -39,19 +39,17 @@ app.json_encoder = CustomJSONEncoder
 # register routes
 import qdb.routes
 
-# initialize the database session
-from qdb.database import init_db, db_session
-init_db()
-
 @app.teardown_appcontext
 def shutdown_session(exception=None):
+	from qdb.database import db_session
 	db_session.remove()
-
-# inject global jinja variables
-from qdb.models import Quote
 
 @app.context_processor
 def jinja_globals():
+	# inject global jinja variables
+	from qdb.database import db_session
+	from qdb.models import Quote
+
 	context = dict()
 
 	if session.get('logged_in'):

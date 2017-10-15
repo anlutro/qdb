@@ -1,3 +1,4 @@
+/.cache
 /.virtualenv
 /config.py
 __pycache__

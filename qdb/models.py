@@ -29,31 +29,6 @@ class Quote(Base):
 			return datetime.date(dt.year, dt.month, dt.day)
 		return dt
 
-	@staticmethod
-	def prepare(quote, strip_timestamps=True, strip_modes=True, normalize_whitespace=True):
-		if strip_timestamps:
-			# remove timestamps at the start of each line
-			ts_expr = re.compile(
-				r'^[\[\(]?\d{1,2}\:?\d{2}(\:?\d{2})?(\s*(AM|PM))?[\]\)]?\s*'
-			)
-			lines = []
-			for line in quote.split('\n'):
-				lines.append(ts_expr.sub('', line))
-			quote = '\n'.join(lines)
-
-		if strip_modes:
-			# remove @ + in front of people's nicks
-			quote = re.sub(r'(\<)([\s\@\+])([A-z0-9_-`\\]+\>)', r'\1\3', quote)
-
-		if normalize_whitespace:
-			# replace tabs with spaces
-			quote = re.sub(r'\t+', ' ', quote)
-
-			# remove windows-style newline characters
-			quote = quote.replace('\r', '')
-
-		return quote
-
 	def to_json_dict(self):
 		return {
 			'id': self.id,

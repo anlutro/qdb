@@ -5,7 +5,7 @@ DEBUG = True
 SECRET_KEY = 'IAMTOTALLYNOTSECRET!'
 
 # the moderator password
-PASSWORD = 'whathefuck'
+PASSWORD = 'examplepass'
 
 # the sqlite database string
 # http://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls

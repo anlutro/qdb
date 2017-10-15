@@ -4,6 +4,7 @@ from datetime import datetime
 from flask import (url_for, render_template, jsonify, redirect, abort, flash,
 	request, session)
 from qdb.models import Quote
+from qdb.format import prepare_quote
 from qdb.database import db_session
 from qdb.utils import Paginator, is_spam
 from sqlalchemy.sql.expression import func
@@ -92,7 +93,7 @@ def submit():
 	if is_spam(request.form['body']):
 		return abort(400)
 
-	body = Quote.prepare(
+	body = prepare_quote(
 		request.form['body'],
 		strip_timestamps=bool(request.form.get('strip_timestamps'))
 	)
@@ -196,7 +197,7 @@ def show(quote_id):
 		db_session.commit()
 		return 'OK'
 
-	quote.body = Quote.prepare(
+	quote.body = prepare_quote(
 		request.form['body'],
 		strip_timestamps=bool(request.form.get('strip_timestamps'))
 	)
