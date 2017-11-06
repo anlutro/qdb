@@ -1,0 +1,4 @@
+-r base.txt
+
+opbeat[flask]
+psycopg2
