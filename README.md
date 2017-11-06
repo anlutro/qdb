@@ -17,13 +17,10 @@ Activate the virtualenv:
 
 	$ source ./.virtualenv/bin/activate
 
-Install dependencies with pip:
+Install dependencies with pip - choose one, depending on where you're installing:
 
-	$ pip install -r requirements.txt
-
-Or if you want to run with postgres:
-
-	$ pip install -r requirements_pg.txt
+	$ pip install -r requirements/dev.txt
+	$ pip install -r requirements/prod.txt
 
 Copy the config example file to `config.py`:
 
@@ -39,7 +36,7 @@ Go to `localhost:5000` in your browser of choice to make sure it works.
 
 ## UWSGI
 
-In production I recommend running the app with UWSGI. Here's an example uwsgi.ini:
+In production I recommend running the app with uWSGI. Here's an example `uwsgi.ini`:
 
 	[uwsgi]
 	plugin = python3,logfile
