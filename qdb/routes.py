@@ -28,7 +28,13 @@ def home():
 	if search:
 		query = query.filter(Quote.body.ilike('%'+search+'%'))
 
-	page = int(request.args.get('p', 1))
+	try:
+		page = int(request.args.get('p', 1))
+	except ValueError:
+		resp = jsonify(error='invalid page number')
+		resp.status_code = 400
+		return resp
+
 	if page < 1:
 		page = 1
 	paginator = Paginator(query, page, request.url)
