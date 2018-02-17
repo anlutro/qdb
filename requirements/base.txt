@@ -4,3 +4,4 @@ flask
 sqlalchemy
 alembic
 requests
+geoip2

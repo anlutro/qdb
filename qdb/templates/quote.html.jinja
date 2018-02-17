@@ -12,6 +12,7 @@
 		<button class="quote-delete_button" data-quote-id="{{ quote.id }}">Delete</button>
 		<button class="quote-edit_button" data-quote-id="{{ quote.id }}">Edit</button>
 		<span class="submitter-ip">{{ quote.submitter_ip or 'Unknown submitter' }}</span>
+		<span class="submitter-geoip-info">{{ quote.geoip_info or '' }}</span>
 	{% endif %}
 	</div>
 	<div class="quote-body">{{ quote.body | e | urlize }}</div>

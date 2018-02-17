@@ -1,7 +1,7 @@
+import datetime
 from sqlalchemy import Column, Integer, Text, DateTime, Boolean
 from qdb.database import Base
-import re
-import datetime
+from qdb.geoip import get_city_country
 
 
 class Quote(Base):
@@ -28,6 +28,15 @@ class Quote(Base):
 		   dt.microsecond == 0):
 			return datetime.date(dt.year, dt.month, dt.day)
 		return dt
+
+	@property
+	def geoip_info(self):
+		city, country = get_city_country(self.submitter_ip)
+		if city:
+			return '%s, %s' % (city, country)
+		elif country:
+			return country
+		return None
 
 	def to_json_dict(self):
 		return {
