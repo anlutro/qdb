@@ -13,12 +13,16 @@ except FileNotFoundError:
 
 
 def get_city_country(ip):
+	city = None
+	country = None
 	try:
 		if city_reader:
 			resp = city_reader.city(ip)
-			return (resp.name, resp.country.name)
+			country = resp.country.name
+			city = resp.name
 		elif country_reader:
-			return (None, country_reader.country(ip).name)
+			resp = country_reader.country(ip)
+			country = resp.country.name
 	except geoip2.errors.AddressNotFoundError:
 		pass
-	return (None, None)
+	return (city, country)
