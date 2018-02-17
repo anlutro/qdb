@@ -15,6 +15,8 @@ except FileNotFoundError:
 def get_city_country(ip):
 	city = None
 	country = None
+	if not ip:
+		return (city, country)
 	try:
 		if city_reader:
 			resp = city_reader.city(ip)
