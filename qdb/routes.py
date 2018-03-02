@@ -103,6 +103,8 @@ def submit():
 		request.form['body'],
 		strip_timestamps=bool(request.form.get('strip_timestamps'))
 	)
+	if not body:
+		return abort(400)
 	quote = Quote(body, datetime.now(), request.remote_addr)
 	if session.get('logged_in'):
 		quote.approved = True
