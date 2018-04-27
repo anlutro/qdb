@@ -1,5 +1,4 @@
-/.cache
-/.virtualenv
+/.pytest_cache
 /config.py
 __pycache__
 *.pyc

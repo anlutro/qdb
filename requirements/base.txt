@@ -5,3 +5,4 @@ sqlalchemy
 alembic
 requests
 geoip2
+psycopg2
