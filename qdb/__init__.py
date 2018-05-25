@@ -20,6 +20,10 @@ if not app.debug:
 		bytecode_cache=FileSystemBytecodeCache(j2cachedir, '%s.cache'),
 	)
 
+	if 'SENTRY_CONFIG' in app.config:
+		from raven.contrib.flask import Sentry
+		Sentry(app)
+
 # set up logging to stderr
 import logging
 import sys
