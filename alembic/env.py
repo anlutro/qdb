@@ -23,7 +23,7 @@ target_metadata = models.Base.metadata
 
 
 def run_migrations_offline():
-	"""Run migrations in 'offline' mode.
+    """Run migrations in 'offline' mode.
 
 	This configures the context with just a URL
 	and not an Engine, though an Engine is acceptable
@@ -34,34 +34,30 @@ def run_migrations_offline():
 	script output.
 
 	"""
-	url = app.config.get('DB')
-	context.configure(
-		url=url, target_metadata=target_metadata, literal_binds=True)
+    url = app.config.get("DB")
+    context.configure(url=url, target_metadata=target_metadata, literal_binds=True)
 
-	with context.begin_transaction():
-		context.run_migrations()
+    with context.begin_transaction():
+        context.run_migrations()
 
 
 def run_migrations_online():
-	"""Run migrations in 'online' mode.
+    """Run migrations in 'online' mode.
 
 	In this scenario we need to create an Engine
 	and associate a connection with the context.
 
 	"""
-	connectable = database.engine
+    connectable = database.engine
 
-	with connectable.connect() as connection:
-		context.configure(
-			connection=connection,
-			target_metadata=target_metadata
-		)
+    with connectable.connect() as connection:
+        context.configure(connection=connection, target_metadata=target_metadata)
 
-		with context.begin_transaction():
-			context.run_migrations()
+        with context.begin_transaction():
+            context.run_migrations()
 
 
 if context.is_offline_mode():
-	run_migrations_offline()
+    run_migrations_offline()
 else:
-	run_migrations_online()
+    run_migrations_online()

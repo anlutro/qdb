@@ -2,13 +2,14 @@
 DEBUG = True
 
 # secret key used for session stuff
-SECRET_KEY = 'IAMTOTALLYNOTSECRET!'
+SECRET_KEY = "IAMTOTALLYNOTSECRET!"
 
 # the moderator password
-PASSWORD = 'examplepass'
+PASSWORD = "examplepass"
 
 # the sqlite database string
 # http://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls
 import os.path
-DB = 'sqlite:////{}/tmp/test.db'.format(os.path.dirname(__file__))
+
+DB = "sqlite:////{}/tmp/test.db".format(os.path.dirname(__file__))
 # DB = 'postgresql://user:pass@localhost/dbname'
