@@ -89,3 +89,7 @@ def jinja_globals():
         context["url_for"] = dated_url_for
 
     return context
+
+if app.debug:
+    from qdb.database import init_db
+    init_db()
