@@ -90,6 +90,8 @@ def jinja_globals():
 
     return context
 
+
 if app.debug:
     from qdb.database import init_db
+
     init_db()
