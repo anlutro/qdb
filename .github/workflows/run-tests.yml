@@ -28,7 +28,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install --upgrade -r requirements/pytest.txt
-      - run: pytest
+      - run: |
+          cp config.example.py config.py
+          pytest
 
   black:
     runs-on: ubuntu-latest
