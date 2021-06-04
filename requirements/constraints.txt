@@ -19,7 +19,7 @@ mccabe==0.6.1
 more-itertools==7.2.0
 packaging==19.2
 pluggy==0.13.0
-psycopg2-binary==2.8.4
+psycopg2-binary==2.8.6
 py==1.10.0
 pylint==2.4.4
 pyparsing==2.4.5
