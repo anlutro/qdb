@@ -21,7 +21,7 @@ def get_city_country(ip):
         if city_reader:
             resp = city_reader.city(ip)
             country = resp.country.name
-            city = resp.name
+            city = resp.name  # pylint: disable=no-member
         elif country_reader:
             resp = country_reader.country(ip)
             country = resp.country.name

@@ -24,7 +24,7 @@ if not app.debug:
     )
 
     if "SENTRY_CONFIG" in app.config:
-        from raven.contrib.flask import Sentry
+        from raven.contrib.flask import Sentry  # pylint: disable=import-error
 
         Sentry(app)
 
@@ -34,7 +34,7 @@ import sys
 
 file_handler = logging.StreamHandler(sys.stderr)
 file_handler.setLevel(logging.WARNING)
-app.logger.addHandler(file_handler)
+app.logger.addHandler(file_handler)  # pylint: disable=no-member
 
 # replace the json encoder
 from qdb.utils import CustomJSONEncoder
