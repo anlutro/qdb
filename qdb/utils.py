@@ -15,7 +15,7 @@ def is_spam(text):
 
 
 class CustomJSONEncoder(JSONEncoder):
-    def default(self, obj):
+    def default(self, obj):  # pylint: disable=method-hidden
         if isinstance(obj, qdb.models.Quote):
             return obj.to_json_dict()
         if isinstance(obj, Paginator):
